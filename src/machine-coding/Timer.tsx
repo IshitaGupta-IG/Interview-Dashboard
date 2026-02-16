@@ -10,7 +10,7 @@ const Timer = () => {
         if(intervalRef.current !== null) return;
         intervalRef.current = setInterval(()=> {
              setTime(prevTime => prevTime + 1)
-        },1000);  
+        },1);  
     }
 
     const stopTimer = () => {
@@ -25,6 +25,14 @@ const Timer = () => {
         setTime(0);
     }
 
+    const displayTime = (millisecondsTime : number) => {
+        let milliseconds = millisecondsTime%1000;
+        let seconds = Math.floor((millisecondsTime/1000)%60);
+        let mins = Math.floor((millisecondsTime/(1000*60))%60)
+        let hours = Math.floor(millisecondsTime/(1000*60*60))
+       return (hours.toString().padStart(2,"0")+":"+mins.toString().padStart(2,"0")+":"+seconds.toString().padStart(2,"0")+"."+milliseconds.toString().padStart(3,"0"));
+    }
+
     useEffect(()=> {
         return () => {
             stopTimer();
@@ -37,7 +45,7 @@ const Timer = () => {
             <input type="button" value="STOP" className="btn-timer" onClick={stopTimer}></input>
             <input type="button" value="RESET" className="btn-timer" onClick={resetTimer}></input>
             <div>
-                Timer : {time}
+                Timer : {displayTime(time)}
             </div>
         </React.Fragment>
     )
