@@ -1,6 +1,7 @@
-export const machineCodingQuestions = [
+export const machineProblems = [
   {
-    title: 'Build a Counter App',
-    description: 'Create a counter with increment and decrement functionality.'
+    id: 'todo-app',
+    title: 'Build Todo App',
+    description: 'Create a todo app with add and delete functionality.'
   }
 ]

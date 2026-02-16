@@ -1,31 +1,19 @@
-import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import PageWrapper from '../components/PageWrapper'
-import QuestionCard from '../components/QuestionCard'
-import { machineCodingQuestions } from '../data/machineCoding'
-
-const CounterSolution = () => {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(c => c + 1)}>+</button>
-      <button onClick={() => setCount(c => c - 1)}>-</button>
-    </div>
-  )
-}
+import { machineProblems } from '../data/machineCoding'
 
 const MachineCoding = () => {
   return (
     <PageWrapper title="Machine Coding">
-      {machineCodingQuestions.map((q, index) => (
-        <QuestionCard
-          key={index}
-          title={q.title}
-          description={q.description}
-          solution={<CounterSolution />}
-        />
-      ))}
+      <ul>
+        {machineProblems.map(problem => (
+          <li key={problem.id}>
+            <Link to={problem.id}>
+              {problem.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </PageWrapper>
   )
 }
