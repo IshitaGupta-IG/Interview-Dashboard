@@ -1,0 +1,205 @@
+# 🧠 Senior Frontend Machine Coding Assignment
+
+## 📌 Problem Statement
+
+Build a reusable, scalable, schema-driven Form system using React.
+
+The form must dynamically render fields based on a schema received from an API.
+Your solution must handle:
+
+- Dynamic rendering
+- Validation (sync + async)
+- Dependent fields
+- Performance optimization
+- Accessibility
+- Form persistence
+- Proper submission handling
+- Reusability
+
+The component should be generic and reusable for multiple forms (Login, Registration, Profile Update, etc.).
+
+---
+
+## 📦 Schema (Simulated API Response)
+
+Assume the following schema is returned from an API:
+
+```js
+const formSchema = [
+  {
+    name: "fullName",
+    label: "Full Name",
+    type: "text",
+    validation: { required: true }
+  },
+  {
+    name: "email",
+    label: "Email",
+    type: "email",
+    validation: { required: true, email: true }
+  },
+  {
+    name: "phone",
+    label: "Phone",
+    type: "tel",
+    validation: { required: true, minLength: 10 }
+  },
+  {
+    name: "country",
+    label: "Country",
+    type: "select",
+    options: ["India", "USA"]
+  },
+  {
+    name: "state",
+    label: "State",
+    type: "select",
+    dependentOn: "country"
+  }
+];
+```
+
+---
+
+# ✅ Requirements
+
+## 1️⃣ Dynamic Rendering
+
+- Render all form fields dynamically from the schema.
+- Do NOT hardcode individual inputs.
+- Support input types:
+  - text
+  - email
+  - tel
+  - select
+- Manage form state dynamically using field names.
+- Component should work for any similar schema.
+
+---
+
+## 2️⃣ Validation
+
+### Field-Level Validation
+- Required validation
+- Email format validation
+- Minimum length validation (e.g., phone ≥ 10 digits)
+- Validate on blur
+- Validate entire form on submit
+
+### Error Handling
+- Display error message below corresponding field
+- Track touched fields
+- Do not show errors before user interaction
+- Prevent submission if validation fails
+
+---
+
+## 3️⃣ Async Email Validation
+
+- Debounce API call by 500ms when email changes
+- Simulate API call to check if email already exists
+- Show "Email already taken" if API returns true
+- Prevent race conditions (ignore outdated responses)
+- Avoid unnecessary API calls
+
+---
+
+## 4️⃣ Dependent Dropdown
+
+- When "country" changes:
+  - Reset "state" field
+  - Fetch updated state options (simulate async call)
+- Prevent outdated responses overriding latest selection
+- Ensure UI consistency
+
+---
+
+## 5️⃣ Form Submission Behavior
+
+On submit:
+
+- Perform full validation
+- Disable submit button while submitting
+- Prevent duplicate submissions
+- Simulate API call
+- If success:
+  - Reset form
+- If failure:
+  - Show server error
+  - Preserve user input
+
+---
+
+## 6️⃣ Form Persistence
+
+- Save form data to localStorage on change
+- Load form data on mount
+- Handle corrupted or invalid localStorage safely
+- Avoid storing sensitive information
+
+---
+
+## 7️⃣ Performance & Scalability
+
+Assume form may grow to 50+ fields.
+
+Your implementation should:
+
+- Avoid unnecessary re-renders
+- Be architecturally scalable
+- Handle dynamic updates efficiently
+- Justify performance decisions
+
+---
+
+## 8️⃣ Accessibility
+
+- Proper <label> association
+- Use aria-invalid for error fields
+- Use role="alert" for error messages
+- Ensure keyboard navigation works
+- Maintain proper tab order
+
+---
+
+## 9️⃣ Reusability
+
+Your form component should be usable like:
+
+```jsx
+<Form
+  schema={formSchema}
+  onSubmit={handleSubmit}
+/>
+```
+
+It should support different schemas without code modification.
+
+---
+
+## 🔥 Bonus (Senior / Lead Level)
+
+- Schema-based validation engine
+- Custom `useForm` hook
+- Optimistic UI updates
+- Analytics tracking on field interaction
+- Centralized error handling strategy
+
+---
+
+## ⏱ Expected Time
+
+60–90 minutes
+
+---
+
+## 📊 Evaluation Criteria
+
+- Clean architecture
+- Correct state management
+- Async handling quality
+- Performance awareness
+- Accessibility compliance
+- Edge case handling
+- Code readability
+- Scalability thinking
